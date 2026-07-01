@@ -14,31 +14,55 @@ body {
     color: #2f2f2f;
     text-align: center;
     overflow-x: hidden;
-
     background:
         radial-gradient(circle at top left, rgba(255,245,230,0.8), transparent 35%),
         radial-gradient(circle at bottom right, rgba(245,225,190,0.6), transparent 40%),
         linear-gradient(180deg, #fffdfb 0%, #f8f2ea 50%, #fffdfb 100%);
 }
 
-/* Анимация появления */
-.fade {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeIn 1s ease forwards;
+/* ===== START SCREEN ===== */
+.start-screen {
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.start-screen h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    margin-bottom: 10px;
 }
 
+.start-btn {
+    margin-top: 30px;
+    padding: 15px 35px;
+    border-radius: 50px;
+    border: none;
+    background: #b89b5e;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(184,155,94,0.3);
+}
+
+/* ===== MAIN ===== */
 .container {
     max-width: 800px;
     margin: auto;
     padding: 60px 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 1s ease;
+}
+
+.container.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 h1 {
@@ -54,6 +78,15 @@ h2 {
     margin-top: 50px;
 }
 
+h2::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 2px;
+    margin: 15px auto 0;
+    background: linear-gradient(to right, transparent, #c7a96d, transparent);
+}
+
 .gold { color: #b89b5e; }
 
 .section {
@@ -63,135 +96,118 @@ h2 {
     border-radius: 20px;
     backdrop-filter: blur(10px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 0.8s ease;
 }
 
-.small {
-    font-size: 16px;
-    line-height: 1.7;
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .button {
     margin: 10px;
-    padding: 14px 28px;
-    border: 1px solid #b89b5e;
-    background: transparent;
+    padding: 15px 35px;
+    border-radius: 50px;
+    border: none;
+    background: #b89b5e;
+    color: white;
     cursor: pointer;
     transition: 0.3s;
 }
 
 .button:hover {
-    background: #b89b5e;
-    color: white;
+    transform: translateY(-3px);
 }
 
-/* Таймер */
 .timer {
     font-size: 22px;
     margin-top: 10px;
 }
 
-/* Галерея */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.gallery img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-/* Попап */
+/* popup */
 .popup {
     display: none;
     position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: rgba(0,0,0,0.4);
     justify-content: center;
     align-items: center;
+    z-index: 9999;
 }
 
 .popup-content {
     background: white;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 15px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 🎵 Музыка (можешь заменить ссылку или убрать autoplay) -->
-<audio autoplay loop>
-    <source src="https://cdn.pixabay.com/audio/2022/10/16/audio_12b5f3f5b2.mp3" type="audio/mpeg">
-</audio>
+<!-- START SCREEN -->
+<div class="start-screen" id="start">
+    <h1>Faruh & Kristina</h1>
+    <p style="color:#b89b5e;letter-spacing:3px;">11 • 07 • 2026</p>
+    <button class="start-btn" onclick="openInvite()">Открыть приглашение</button>
+</div>
 
-<div class="container fade">
+<!-- MAIN -->
+<div class="container" id="container">
 
     <h1>Faruh <span class="gold">&</span> Kristina</h1>
-    <p style="font-size:20px;color:#b89b5e;letter-spacing:3px;">
-11 • 07 • 2026
-</p>
-    <p class="small">
-С любовью приглашаем вас разделить с нами один из самых счастливых дней нашей жизни.
-Ваше присутствие станет для нас самым дорогим подарком.
-</p>
-    <div class="section">
-        <h2>📅 11 июля 2026</h2>
-        <p>🕟 16:30</p>
 
+    <p style="font-size:20px;color:#b89b5e;letter-spacing:3px;">
+        11 • 07 • 2026
+    </p>
+
+    <p>
+        С любовью приглашаем вас разделить с нами один из самых счастливых дней нашей жизни.
+    </p>
+
+    <div class="section">
+        <h2>📅 Дата</h2>
+        <p>11 июля 2026 • 16:30</p>
         <div class="timer" id="timer"></div>
     </div>
 
-    <div class="section fade">
-        <h2>📍 Локация</h2>
-        <p>Haven 10, 4811 WK Breda, Netherlands</p>
-        <iframe
-            src="https://www.google.com/maps?q=Haven%2010%20Breda&output=embed"
-            width="100%" height="250" style="border:0; border-radius:10px;">
-        </iframe>
-    </div>
-
-    <div class="section fade">
-        <h2>✨ Программа дня</h2>
+    <div class="section">
+        <h2>✨ Программа</h2>
         <p>
         🕟 Сбор гостей<br><br>
-        🥂 Праздничный ужин<br><br>
-        🚤 Прогулка на лодке с фуршетом<br><br>
-        💛 Свободное общение
+        🥂 Ужин<br><br>
+        🚤 Прогулка на лодке<br><br>
+        💛 Общение
         </p>
     </div>
 
-    <div class="section fade">
-        <h2>📸 Галерея</h2>
-        <div class="gallery">
-            <img src="https://images.unsplash.com/photo-1529636798458-92182e662485">
-            <img src="https://images.unsplash.com/photo-1523438097201-512ae7d59c8d">
-            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc">
-            <img src="https://images.unsplash.com/photo-1520857014576-2c4f4c972b57">
-        </div>
-    </div>
-
-    <div class="section fade">
+    <div class="section">
         <h2>💌 Пожелания</h2>
-        <p>
-        Мы будем благодарны за денежный подарок вместо цветов и вещей.
-        </p>
+        <p>Будем благодарны за денежный подарок вместо цветов.</p>
     </div>
 
-    <div class="section fade">
+    <div class="section">
         <h2>📲 Подтверждение</h2>
-        <button class="button" onclick="popup('Спасибо! Мы ждём вас ❤️')">Я буду</button>
-        <button class="button" onclick="popup('Жаль, но мы понимаем 💛')">Не смогу</button>
+        <button class="button" onclick="popup('Спасибо! Ждём вас ❤️')">Я буду</button>
+        <button class="button" onclick="popup('Понимаем 💛')">Не смогу</button>
+    </div>
+
+    <div class="section">
+        <h2>📍 Локация</h2>
+        <p>Haven 10, Breda</p>
+        <iframe
+            src="https://www.google.com/maps?q=Haven%2010%20Breda&output=embed"
+            width="100%" height="350"
+            style="border:0;border-radius:12px;">
+        </iframe>
     </div>
 
 </div>
 
-<!-- Popup -->
+<!-- POPUP -->
 <div class="popup" id="popup">
     <div class="popup-content">
         <p id="text"></p>
@@ -200,30 +216,46 @@ h2 {
 </div>
 
 <script>
-// Таймер
-const weddingDate = new Date("July 11, 2026 16:30:00").getTime();
+// старт
+function openInvite() {
+    document.getElementById('start').style.display = 'none';
+    document.getElementById('container').classList.add('show');
+}
+
+// таймер
+const weddingDate = new Date("2026-07-11T16:30:00").getTime();
 
 setInterval(() => {
     const now = new Date().getTime();
     const diff = weddingDate - now;
 
-    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
+    const m = Math.floor((diff % (1000*60*60))/(1000*60));
 
-    document.getElementById("timer").innerHTML =
-        `⏳ Осталось: ${d} дней ${h} часов ${m} минут`;
+    document.getElementById("timer").innerText =
+        `⏳ Осталось: ${d}д ${h}ч ${m}м`;
 }, 1000);
 
-// Popup
-function popup(text) {
-    document.getElementById('popup').style.display = 'flex';
-    document.getElementById('text').innerText = text;
+// popup
+function popup(text){
+    document.getElementById('popup').style.display='flex';
+    document.getElementById('text').innerText=text;
+}
+function closePopup(){
+    document.getElementById('popup').style.display='none';
 }
 
-function closePopup() {
-    document.getElementById('popup').style.display = 'none';
-}
+// scroll animation
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if(e.isIntersecting){
+            e.target.classList.add('visible');
+        }
+    });
+});
+
+document.querySelectorAll('.section').forEach(el => observer.observe(el));
 </script>
 
 </body>
