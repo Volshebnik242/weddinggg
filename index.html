@@ -1,261 +1,379 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Faruh & Kristina Wedding</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    color: #2f2f2f;
-    text-align: center;
-    overflow-x: hidden;
-    background:
-        radial-gradient(circle at top left, rgba(255,245,230,0.8), transparent 35%),
-        radial-gradient(circle at bottom right, rgba(245,225,190,0.6), transparent 40%),
-        linear-gradient(180deg, #fffdfb 0%, #f8f2ea 50%, #fffdfb 100%);
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  color:#3d3d3d;
+  font-family:'Inter',sans-serif;
+  background:#fffaf7;
+  text-align:center;
+  overflow-x:hidden;
 }
 
-/* ===== START SCREEN ===== */
-.start-screen {
-    position: fixed;
-    inset: 0;
-    background: rgba(255,255,255,0.95);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+.start{
+  position:fixed;
+  inset:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,#fff,#f8eee9);
 }
 
-.start-screen h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 48px;
-    margin-bottom: 10px;
+.envelope{
+  width:300px;
+  height:190px;
+  background:#c7a36b;
+  border-radius:8px;
+  position:relative;
+  box-shadow:0 25px 60px rgba(0,0,0,.18);
+  cursor:pointer;
 }
 
-.start-btn {
-    margin-top: 30px;
-    padding: 15px 35px;
-    border-radius: 50px;
-    border: none;
-    background: #b89b5e;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    box-shadow: 0 10px 30px rgba(184,155,94,0.3);
+.envelope:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,transparent 50%,#b98f55 50%);
+  border-radius:8px;
 }
 
-/* ===== MAIN ===== */
-.container {
-    max-width: 800px;
-    margin: auto;
-    padding: 60px 20px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: 1s ease;
+.seal{
+  width:76px;
+  height:76px;
+  border-radius:50%;
+  background:#e7b2b9;
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Great Vibes',cursive;
+  font-size:30px;
+  color:white;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
 }
 
-.container.show {
-    opacity: 1;
-    transform: translateY(0);
+.open-text{
+  position:absolute;
+  bottom:-55px;
+  width:100%;
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;
+  color:#9a7a55;
 }
 
-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 62px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
+.page{
+  opacity:0;
+  transform:translateY(20px);
+  transition:1s;
 }
 
-h2 {
-    font-family: 'Playfair Display', serif;
-    margin-top: 50px;
+.page.show{
+  opacity:1;
+  transform:translateY(0);
 }
 
-h2::after {
-    content: "";
-    display: block;
-    width: 70px;
-    height: 2px;
-    margin: 15px auto 0;
-    background: linear-gradient(to right, transparent, #c7a96d, transparent);
+section{
+  min-height:100vh;
+  padding:70px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
-.gold { color: #b89b5e; }
-
-.section {
-    margin-top: 40px;
-    padding: 30px;
-    background: rgba(255,255,255,0.75);
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-
-    opacity: 0;
-    transform: translateY(40px);
-    transition: 0.8s ease;
+.card{
+  width:100%;
+  max-width:430px;
+  padding:34px 24px;
+  border-radius:28px;
+  background:rgba(255,255,255,.72);
+  box-shadow:0 20px 60px rgba(176,135,119,.14);
+  backdrop-filter:blur(12px);
 }
 
-.section.visible {
-    opacity: 1;
-    transform: translateY(0);
+.label{
+  letter-spacing:5px;
+  font-size:12px;
+  color:#9e8b82;
+  text-transform:uppercase;
 }
 
-.button {
-    margin: 10px;
-    padding: 15px 35px;
-    border-radius: 50px;
-    border: none;
-    background: #b89b5e;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
+.names{
+  font-family:'Great Vibes',cursive;
+  font-size:58px;
+  line-height:1;
+  color:#2d2d2d;
+  margin:18px 0 8px;
 }
 
-.button:hover {
-    transform: translateY(-3px);
+.date{
+  letter-spacing:4px;
+  color:#9e8b82;
+  font-size:14px;
+  margin-bottom:28px;
 }
 
-.timer {
-    font-size: 22px;
-    margin-top: 10px;
+.illustration{
+  font-size:120px;
+  line-height:1;
+  opacity:.75;
 }
 
-/* popup */
-.popup {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.4);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:38px;
+  font-weight:500;
+  margin:0 0 20px;
 }
 
-.popup-content {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
+p{
+  font-size:15px;
+  line-height:1.8;
+}
+
+.countdown{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:25px;
+}
+
+.countdown div{
+  padding:15px 6px;
+  border-radius:18px;
+  background:#fff6f4;
+}
+
+.countdown strong{
+  display:block;
+  font-family:'Cormorant Garamond',serif;
+  font-size:30px;
+  color:#b9808a;
+}
+
+.countdown span{
+  font-size:10px;
+  letter-spacing:2px;
+  color:#9e8b82;
+}
+
+.timeline{
+  text-align:left;
+  margin-top:25px;
+}
+
+.item{
+  display:flex;
+  gap:14px;
+  margin:18px 0;
+  align-items:flex-start;
+}
+
+.time{
+  min-width:70px;
+  color:#b9808a;
+  font-weight:500;
+}
+
+.btn{
+  width:100%;
+  margin-top:12px;
+  padding:15px;
+  border-radius:50px;
+  border:1px solid #d8a2aa;
+  background:#fff;
+  color:#b9808a;
+  font-size:15px;
+  cursor:pointer;
+}
+
+.btn.main{
+  background:#d8a2aa;
+  color:white;
+}
+
+iframe{
+  width:100%;
+  height:300px;
+  border:0;
+  border-radius:22px;
+  margin-top:18px;
+}
+
+.lang{
+  position:fixed;
+  top:18px;
+  right:18px;
+  z-index:5;
+  border:1px solid #ead2d5;
+  background:white;
+  border-radius:50px;
+  padding:8px 14px;
+  color:#b9808a;
+}
+
+.popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.35);
+  z-index:20;
+  align-items:center;
+  justify-content:center;
+}
+
+.popup-box{
+  background:white;
+  max-width:310px;
+  padding:30px;
+  border-radius:24px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- START SCREEN -->
-<div class="start-screen" id="start">
-    <h1>Faruh & Kristina</h1>
-    <p style="color:#b89b5e;letter-spacing:3px;">11 • 07 • 2026</p>
-    <button class="start-btn" onclick="openInvite()">Открыть приглашение</button>
+<button class="lang" onclick="toggleLang()">RU / EN</button>
+
+<div class="start" id="start">
+  <div class="envelope" onclick="openInvite()">
+    <div class="seal">F&K</div>
+    <div class="open-text">Открыть приглашение</div>
+  </div>
 </div>
 
-<!-- MAIN -->
-<div class="container" id="container">
+<main class="page" id="page">
 
-    <h1>Faruh <span class="gold">&</span> Kristina</h1>
-
-    <p style="font-size:20px;color:#b89b5e;letter-spacing:3px;">
-        11 • 07 • 2026
+<section>
+  <div class="card">
+    <div class="label" data-ru="Мы женимся" data-en="We're getting married">Мы женимся</div>
+    <div class="names">Faruh & Kristina</div>
+    <div class="date">11 JULY 2026</div>
+    <div class="illustration">🎂</div>
+    <p data-ru="С любовью приглашаем вас разделить с нами самый важный и счастливый день нашей жизни."
+       data-en="With love, we invite you to share one of the happiest days of our lives.">
+       С любовью приглашаем вас разделить с нами самый важный и счастливый день нашей жизни.
     </p>
+    <button class="btn main" onclick="scrollToSection('rsvp')" data-ru="Подтвердить присутствие" data-en="Confirm Attendance">Подтвердить присутствие</button>
+  </div>
+</section>
 
+<section>
+  <div class="card">
+    <h2 data-ru="До нашей свадьбы" data-en="Counting the Days">До нашей свадьбы</h2>
+    <div class="countdown">
+      <div><strong id="days">0</strong><span>ДНЕЙ</span></div>
+      <div><strong id="hours">0</strong><span>ЧАСОВ</span></div>
+      <div><strong id="minutes">0</strong><span>МИНУТ</span></div>
+      <div><strong id="seconds">0</strong><span>СЕКУНД</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="card">
+    <h2 data-ru="Наша история" data-en="Our Love Story">Наша история</h2>
     <p>
-        С любовью приглашаем вас разделить с нами один из самых счастливых дней нашей жизни. Ваше присутствие станет для нас самым дорогим подарком
+      Faruh & Kristina — история любви, которая привела нас к этому прекрасному дню
+      Мы будем счастливы увидеть вас рядом с нами
     </p>
+  </div>
+</section>
 
-    <div class="section">
-        <h2>📅 Дата</h2>
-        <p>11 июля 2026 • 16:30</p>
-        <div class="timer" id="timer"></div>
+<section>
+  <div class="card">
+    <h2 data-ru="Программа" data-en="Wedding Timeline">Программа</h2>
+    <div class="timeline">
+      <div class="item"><div class="time">16:30</div><div>Сбор гостей</div></div>
+      <div class="item"><div class="time">17:00</div><div>Праздничный ужин</div></div>
+      <div class="item"><div class="time">19:00</div><div>Прогулка на лодке</div></div>
     </div>
+  </div>
+</section>
 
-    <div class="section">
-        <h2>✨ Программа</h2>
-        <p>
-        🕟 Сбор гостей<br><br>
-        🥂 Ужин<br><br>
-        🚤 Прогулка на лодке<br><br>
-        💛 Общение
-        </p>
-    </div>
+<section>
+  <div class="card">
+    <h2 data-ru="Детали" data-en="Event Details">Детали</h2>
+    <p><b>11 июля 2026</b><br>Начало в 16:30</p>
+    <p><b>Haven 10, Breda</b></p>
+    <iframe src="https://www.google.com/maps?q=Haven%2010%20Breda&output=embed"></iframe>
+    <button class="btn" onclick="window.open('https://www.google.com/maps/search/?api=1&query=Haven%2010%20Breda','_blank')">Открыть в Google Maps</button>
+  </div>
+</section>
 
-    <div class="section">
-        <h2>💌 Пожелания</h2>
-        <p>С радостью ждём вас на нашем празднике</p>
-    </div>
+<section id="rsvp">
+  <div class="card">
+    <h2>RSVP</h2>
+    <p data-ru="Пожалуйста, подтвердите ваше присутствие." data-en="Please confirm your attendance.">
+      Пожалуйста, подтвердите ваше присутствие.
+    </p>
+    <button class="btn main" onclick="popup('Спасибо! Мы будем ждать вас ❤️')">Я буду</button>
+    <button class="btn" onclick="popup('Спасибо за ответ 💛')">Не смогу</button>
+  </div>
+</section>
 
-    <div class="section">
-        <h2>📲 Подтверждение</h2>
-        <button class="button" onclick="popup('Спасибо! Ждём вас ❤️')">Я буду</button>
-        <button class="button" onclick="popup('Понимаем 💛')">Не смогу</button>
-    </div>
+</main>
 
-    <div class="section">
-        <h2>📍 Локация</h2>
-        <p>Haven 10, Breda</p>
-        <iframe
-            src="https://www.google.com/maps?q=Haven%2010%20Breda&output=embed"
-            width="100%" height="350"
-            style="border:0;border-radius:12px;">
-        </iframe>
-    </div>
-
-</div>
-
-<!-- POPUP -->
 <div class="popup" id="popup">
-    <div class="popup-content">
-        <p id="text"></p>
-        <button class="button" onclick="closePopup()">Закрыть</button>
-    </div>
+  <div class="popup-box">
+    <p id="popupText"></p>
+    <button class="btn main" onclick="closePopup()">Закрыть</button>
+  </div>
 </div>
 
 <script>
-// старт
-function openInvite() {
-    document.getElementById('start').style.display = 'none';
-    document.getElementById('container').classList.add('show');
+let lang = "ru";
+
+function openInvite(){
+  document.getElementById("start").style.display = "none";
+  document.getElementById("page").classList.add("show");
 }
 
-// таймер
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+function popup(text){
+  document.getElementById("popupText").innerText = text;
+  document.getElementById("popup").style.display = "flex";
+}
+
+function closePopup(){
+  document.getElementById("popup").style.display = "none";
+}
+
+function toggleLang(){
+  lang = lang === "ru" ? "en" : "ru";
+  document.querySelectorAll("[data-ru]").forEach(el=>{
+    el.innerText = el.dataset[lang];
+  });
+}
+
 const weddingDate = new Date("2026-07-11T16:30:00").getTime();
 
-setInterval(() => {
-    const now = new Date().getTime();
-    const diff = weddingDate - now;
+setInterval(()=>{
+  const now = new Date().getTime();
+  const diff = weddingDate - now;
 
-    const d = Math.floor(diff / (1000*60*60*24));
-    const h = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
-    const m = Math.floor((diff % (1000*60*60))/(1000*60));
+  if(diff <= 0) return;
 
-    document.getElementById("timer").innerText =
-        `⏳ Осталось: ${d}д ${h}ч ${m}м`;
-}, 1000);
-
-// popup
-function popup(text){
-    document.getElementById('popup').style.display='flex';
-    document.getElementById('text').innerText=text;
-}
-function closePopup(){
-    document.getElementById('popup').style.display='none';
-}
-
-// scroll animation
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-        if(e.isIntersecting){
-            e.target.classList.add('visible');
-        }
-    });
-});
-
-document.querySelectorAll('.section').forEach(el => observer.observe(el));
+  document.getElementById("days").innerText = Math.floor(diff/(1000*60*60*24));
+  document.getElementById("hours").innerText = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  document.getElementById("minutes").innerText = Math.floor((diff%(1000*60*60))/(1000*60));
+  document.getElementById("seconds").innerText = Math.floor((diff%(1000*60))/1000);
+},1000);
 </script>
 
 </body>
